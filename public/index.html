@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zen — a systems language that stays out of your way</title>
+<meta name="description" content="Zen compiles straight to native code via LLVM, with struct methods and a built-in HTTP server. No dependencies, no runtime, no ceremony.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="wordmark" href="/">
+    <span class="seal" aria-hidden="true">禅</span>
+    <span>zen</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#source">source</a>
+    <a href="#start">get started</a>
+    <a href="https://github.com" class="pill">github ↗</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">a systems language</p>
+      <h1>Write it plainly.<br>Let the compiler do the rest.</h1>
+      <p class="lede">Zen compiles straight to native code through LLVM — struct methods, a real type system, and a batteries-included HTTP server, with nothing extra bolted on.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#start">Get started</a>
+        <a class="btn btn-ghost" href="#source">Read the source</a>
+      </div>
+    </div>
+
+    <div class="terminal" role="img" aria-label="Terminal showing a Zen HTTP server starting and answering a request">
+      <div class="terminal-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="terminal-title">shell</span>
+      </div>
+      <pre class="terminal-body"><code id="typewriter"></code><span class="cursor" id="cursor" aria-hidden="true"></span></pre>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true"></div>
+
+  <section class="features">
+    <p class="section-label">what's built in</p>
+    <ul class="feature-grid">
+      <li class="tag">
+        <h3>Native compile</h3>
+        <p>Straight to machine code through LLVM. No VM, no interpreter step between you and the binary.</p>
+      </li>
+      <li class="tag">
+        <h3>Struct methods</h3>
+        <p>Call behavior directly off your data — <code>server.listen()</code>, <code>req.send()</code> — without a class hierarchy to maintain.</p>
+      </li>
+      <li class="tag">
+        <h3>HTTP, included</h3>
+        <p>Sockets, routing, and response helpers ship in the standard runtime. No package to install before your first request.</p>
+      </li>
+      <li class="tag">
+        <h3>Predictable memory</h3>
+        <p>Structs are explicit about what's a value and what's a handle. Nothing hides an allocation from you.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="source" id="source">
+    <p class="section-label">this page, honestly</p>
+    <h2>You're looking at Zen's own output.</h2>
+    <p class="source-lede">This page is served by the program below — compiled with Zen, running as a native binary, answering the request your browser just made.</p>
+
+    <div class="code-panel">
+      <div class="code-panel-bar">
+        <span class="terminal-title">server.zen</span>
+        <span class="status-pill"><span class="status-dot"></span> listening on :8080</span>
+      </div>
+      <pre class="code-body"><code>screen("Zen listening on :8080")
+
+HttpServer server = httpServer.create(8080)
+
+if (server.listen() == 1) {
+
+    while (true) {
+
+        HttpRequest req = server.next()
+
+        if (req.path == "/") {
+            req.sendFile("public/index.html", "text/html")
+        } else if (req.path == "/styles.css") {
+            req.sendFile("public/styles.css", "text/css")
+        } else if (req.path == "/script.js") {
+            req.sendFile("public/script.js", "application/javascript")
+        } else {
+            req.status(404)
+            req.send("Not found")
+        }
+    }
+}</code></pre>
+    </div>
+  </section>
+
+  <section class="start" id="start">
+    <p class="section-label">get started</p>
+    <h2>Clone it, compile it, run it.</h2>
+    <pre class="install"><code>git clone https://github.com/your-org/zen.git
+cd zen
+node bin/zen.js run server.zen</code></pre>
+    <p class="start-note">That's the whole setup. No package manager, no build config — one file in, one native process out.</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <span class="seal small" aria-hidden="true">禅</span>
+  <p>Zen — built for people who'd rather read code than documentation about code.</p>
+</footer>
+
+<script src="/script.js"></script>
+</body>
+</html>

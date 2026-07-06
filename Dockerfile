@@ -1,8 +1,9 @@
 FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV PATH="/root/.local/bin:${PATH}"
 
-# Install base dependencies
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     curl \
     git \
@@ -21,7 +22,7 @@ RUN apt-get update && apt-get install -y \
 # Install LLVM 20
 RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)" -- 20
 
-# Make versioned LLVM tools available without suffixes
+# Create unversioned LLVM tool symlinks
 RUN ln -sf /usr/bin/clang-20 /usr/bin/clang && \
     ln -sf /usr/bin/clang++-20 /usr/bin/clang++ && \
     ln -sf /usr/bin/llc-20 /usr/bin/llc && \

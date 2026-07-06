@@ -38,4 +38,4 @@ RUN curl -fsSL https://raw.githubusercontent.com/jishith-dev/Zen/main/install.sh
 
 EXPOSE 8080
 
-CMD ["zen", "run", "main.zen"]
+CMD ["zen", "run", "server.zen"]

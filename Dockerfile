@@ -34,7 +34,7 @@ WORKDIR /app
 COPY . .
 
 # Install Zen
-RUN curl -fsSL https://raw.githubusercontent.com/jishith-dev/Zen/main/install.sh | bash -s -- --branch dev -y
+RUN curl -fsSL https://raw.githubusercontent.com/Jishith-dev/Zen/dev/install.sh | bash -s -- --branch dev -y
 
 EXPOSE 8080
 

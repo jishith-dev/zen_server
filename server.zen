@@ -1,19 +1,18 @@
-screen("===== ZEN LANDING SERVER =====")
+screen("Zen listening on :8080")
 
 HttpServer server = httpServer.create(8080)
 
 if (server.listen() == 1) {
 
-    screen("Zen listening on :8080")
-
     while (true) {
 
         HttpRequest req = server.next()
 
-        screen(req.method + " " + req.path)
-
         if (req.path == "/") {
-            req.sendFile("public/index.html", "text/html; charset=UTF-8")
+            req.sendFile("public/index.html", "text/html")
+        } else if (req.path == "/memory") {
+            string memory = fs.readFile("/proc/self/status")
+            req.send(memory)
         } else if (req.path == "/styles.css") {
             req.sendFile("public/styles.css", "text/css")
         } else if (req.path == "/script.js") {
@@ -22,12 +21,5 @@ if (server.listen() == 1) {
             req.status(404)
             req.send("Not found")
         }
-
     }
-
-} else {
-
-    screen("Failed to start server")
-
 }
-
